@@ -18,7 +18,7 @@ function decodeHtmlEntities(encodedString){
  *   - twoDigits(12) => "12" )
 */
 function twoDigits(v){
-	return (v > 9) ? ''+v : '0'+v;;
+	return (v > 9) ? ''+v : '0'+v;
 }
 
 /**
