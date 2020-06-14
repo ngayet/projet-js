@@ -27,6 +27,17 @@ view.toggleTriDate = function(){
   }else{
     $('#triDate').text("Trier par date plus ancienne");
   }
+
+  nouvellesAffichees = [];
+  $('#resultats').children().each(function () {
+    nouvelle = {
+      titre: $(this).children('.titre_news').text(),
+      date:  $(this).children('.date_news').text(),
+      url:  $(this).children('.titre_news').attr("href") ,
+    };
+  nouvellesAffichees.push(nouvelle);
+});
+  view.majResultats(nouvellesAffichees);
 }
 
 view.majResultats = function (tab) {

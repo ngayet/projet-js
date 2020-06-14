@@ -32,7 +32,6 @@ controler.init = function() {
 
 controler.toggleTriDate = function(){
   view.toggleTriDate();
-  view.majResultats(model.recherche_courante_news);
 }
 
 controler.rechercher_nouvelles = function() {
