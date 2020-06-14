@@ -15,6 +15,7 @@ model.removeRecherche = function (titre) {
   if (model.recherches.indexOf(titre) == -1) return false;
   model.recherches.splice(model.recherches.indexOf(titre), 1);
   model.commitRecherches();
+  localStorage.removeItem(titre);
   return true;
 };
 
@@ -37,7 +38,7 @@ model.removeNouvelle = function (nouvelle) {
   return true;
 };
 
- //question 4.3
+//question 4.3
 model.addTag = function (titre) {
   if (model.tags.indexOf(titre) != -1) return false;
   model.tags.push(titre);
@@ -45,7 +46,7 @@ model.addTag = function (titre) {
   return true;
 };
 
- //question 4.3
+//question 4.3
 model.removeTag = function (titre) {
   if (model.tags.indexOf(titre) == -1) return false;
   model.tags.splice(model.tags.indexOf(titre), 1);
@@ -99,4 +100,8 @@ model.commitTags = function () {
  */
 model.pullTags = function () {
   model.tags = JSON.parse(localStorage.getItem("tags")) || [];
+};
+
+model.getNbNouvellesSave = function (recherche) {
+  return (JSON.parse(localStorage.getItem(recherche)) || []).length;
 };

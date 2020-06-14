@@ -30,6 +30,11 @@ controler.init = function() {
   view.init();
 }
 
+controler.toggleTriDate = function(){
+  view.toggleTriDate();
+  view.majResultats(model.recherche_courante_news);
+}
+
 controler.rechercher_nouvelles = function() {
   model.recherche_courante = view.getTextZoneSaisie();
   model.addTag(model.recherche_courante); //question 4.3
@@ -40,12 +45,16 @@ controler.rechercher_nouvelles = function() {
 
 controler.sauver_nouvelle = function(elt) {
   view.toggleSaveImage(elt);
-
+ 
   model.addNouvelle(view.getNouvelle(elt));
+
+   view.refreshRecherchesStockees ();
 }
 
 controler.supprimer_nouvelle = function(elt) {
   view.toggleSaveImage(elt);
 
   model.removeNouvelle(view.getNouvelle(elt));
+
+  view.refreshRecherchesStockees();
 }

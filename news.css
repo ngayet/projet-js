@@ -30,17 +30,15 @@ body
 
 .titre-recherche label
 {
-	display:inline-block;
+	/* display:inline-block; */
 	margin:0px;
-	width:90%;
+	/* width:90%; */
 	font-size:12px;
 }
 
-
-
 .icone-croix
 {
-	display:inline-block;
+	/* display:inline-block; */
 	width:8px;
 	height:8px;
 }
@@ -151,6 +149,7 @@ input[type="text"]
 {
 	width:80%;
 	margin-bottom:10px;
+	
 }
 
 #recherches-stockees
@@ -165,4 +164,11 @@ input[type="text"]
 	width: 99%;
 	height: 200px;
 	margin-bottom: 5px;
+}
+
+#triDate{
+	display:inline-block;
+	width: 100%;
+	text-align: right;
+	user-select: none;
 }

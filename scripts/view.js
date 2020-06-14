@@ -6,9 +6,9 @@ view.getTextZoneSaisie = function () {
 
 view.getTitreRecherche = function (elt) {
   if (elt.tagName == "IMG") {
-    return $(elt).prev().text();
+    return $(elt).prev().children(":first").text();
   } else {
-    return $(elt).text();
+    return $(elt).children(":first").text();
   }
 };
 
@@ -21,10 +21,23 @@ view.displayLoading = function () {
   $("#wait").css("display", "block");
 };
 
+view.toggleTriDate = function(){
+  if($('#triDate').text() == "Trier par date plus ancienne"){
+    $('#triDate').text("Trier par date plus récente");
+  }else{
+    $('#triDate').text("Trier par date plus ancienne");
+  }
+}
+
 view.majResultats = function (tab) {
   $("#wait").css("display", "none");
   $("#resultats").empty();
   tab.sort(compareDate); //question 4.4 tri voir util.js pour compareDate
+
+  if($('#triDate').text() == "Trier par date plus récente"){
+    tab.reverse();
+  }
+
   tab.forEach((element) => {
     element.date = formatDate(element["date"]);
     element.titre = decodeHtmlEntities(element["titre"]);
@@ -55,19 +68,44 @@ view.majResultats = function (tab) {
 
     $("#resultats").append(p);
   });
+  //question 4.4 titre résultats(20)
+  $("#wait")
+    .prev()
+    .text("résultats (" + tab.length + ")");
 };
 
-view.ajouterRecherche = function (value) {
-  var p = $("<p />", { class: "titre-recherche" });
-  $("<label />", { onClick: "controler.selectionner_recherche(this)" })
-    .text(value)
-    .appendTo(p);
+view.ajouterRecherche = function (titre) {
+  p = $("<p />", { class: "titre-recherche" })
+    .css("display", "flex")
+    .css("justify-content", "space-between");
+
+  div = $("<div />", { onClick: "controler.selectionner_recherche(this)" })
+    .css("display", "flex")
+    .css("width", "90%");
+  $("<label />").text(titre).appendTo(div);
+
+  $("<label />")
+    .css("margin-left", "5px")
+    .text(" (" + model.getNbNouvellesSave(titre) + ")")
+    .appendTo(div);
+
+  div.appendTo(p);
+
   $("<img  />", {
     src: "img/croix30.jpg",
     class: "icone-croix",
     onClick: "controler.supprimer_recherche(this)",
-  }).appendTo(p);
+  })
+    .css("align-self", "center")
+    .appendTo(p);
   $("#recherches-stockees").append(p);
+};
+
+view.refreshRecherchesStockees = function () {
+  $("#recherches-stockees").empty();
+  model.recherches.forEach((value) => {
+    view.ajouterRecherche(value);
+  });
 };
 
 view.init = function () {
@@ -81,6 +119,10 @@ view.init = function () {
   $("#zone_saisie").autocomplete({
     source: model.tags,
   });
+
+  //draggable
+  $( "#recherches-stockees" ).sortable();
+  $( "#recherches-stockees" ).disableSelection();
 
   model.recherches.forEach((value) => {
     view.ajouterRecherche(value);
