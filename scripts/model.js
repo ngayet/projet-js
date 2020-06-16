@@ -4,13 +4,18 @@ model.recherches = [];
 model.recherche_courante_news = [];
 model.tags = []; //question 4.3
 
+/**
+ * add a recherche title
+ */
 model.addRecherche = function (titre) {
   if (model.recherches.indexOf(titre) != -1) return false;
   model.recherches.push(titre);
   model.commitRecherches();
   return true;
 };
-
+/**
+ * remove a recherche title
+ */
 model.removeRecherche = function (titre) {
   if (model.recherches.indexOf(titre) == -1) return false;
   model.recherches.splice(model.recherches.indexOf(titre), 1);
@@ -18,7 +23,9 @@ model.removeRecherche = function (titre) {
   localStorage.removeItem(titre);
   return true;
 };
-
+/**
+ * add a result
+ */
 model.addNouvelle = function (nouvelle) {
   if (indexOfResultat(model.recherche_courante_news, nouvelle) != -1)
     return false;
@@ -26,7 +33,9 @@ model.addNouvelle = function (nouvelle) {
   model.commitRechercheCouranteNews();
   return true;
 };
-
+/**
+ * remove a result
+ */
 model.removeNouvelle = function (nouvelle) {
   if (indexOfResultat(model.recherche_courante_news, nouvelle) == -1)
     return false;
@@ -38,15 +47,20 @@ model.removeNouvelle = function (nouvelle) {
   return true;
 };
 
-//question 4.3
+/**
+ * question 4.3
+ * add a tag for autocompletion 
+ */
 model.addTag = function (titre) {
   if (model.tags.indexOf(titre) != -1) return false;
   model.tags.push(titre);
   model.commitTags();
   return true;
 };
-
-//question 4.3
+/**
+ * question 4.3
+ * remove a tag for autocompletion 
+ */
 model.removeTag = function (titre) {
   if (model.tags.indexOf(titre) == -1) return false;
   model.tags.splice(model.tags.indexOf(titre), 1);

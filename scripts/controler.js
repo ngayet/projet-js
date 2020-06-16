@@ -1,13 +1,15 @@
 var controler = {};
 
+
 controler.ajouter_recherche = function () {
   titre = view.getTextZoneSaisie();
   if (model.addRecherche(titre)) {
-      model.addTag(titre); //question 4.3
+      model.addTag(titre); //question 4.3 autocompletion
     view.ajouterRecherche(titre);
   }
 };
 
+//question 1.1
 controler.supprimer_recherche = function (elt) {
   model.removeRecherche( view.getTitreRecherche(elt));
   view.supprimerRecherche(elt);
