@@ -1,4 +1,8 @@
-!()[websit.png]
+<img
+      alt="websit"
+      src="./website.png"
+      width=600
+    />
 
 # Fonctionnalité
 
